@@ -13,13 +13,21 @@ namespace ApiTest.Controllers
 
         public ClientsController(IClientService clientService)
         {
-            this.clientService = clientService;
+            this.clientService = clientService; 
         }
 
         [HttpGet]
-        public async Task<ActionResult<Client>> Create (string name)
+        public async Task<ActionResult<Client>> Get (string name)
         {
             var result = await clientService.GetAsync(p => p.FirstName == name);
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Client>> Create (Client client)
+        {
+            var result = await clientService.CreateAsync(client);
 
             return Ok(result);
         }
