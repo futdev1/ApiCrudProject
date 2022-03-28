@@ -13,15 +13,15 @@ namespace ApiTest.Data.IRepositories
 
         /// <param name="predicate"></param>
         /// <returns></returns>
-        Task<T> DeleteAsync(Expression<Func<T, bool>> predicate);
+        Task<bool> DeleteAsync(Expression<Func<T, bool>> predicate);
 
         /// <param name="entity"></param>
         /// <returns></returns>
-        Task<T> UpdateAsync(T entity);
+        T UpdateAsync(T entity);
 
         /// <param name="predicate"></param>
         /// <returns></returns>
-        Task<IQueryable<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null);
+        IQueryable<T> GetAllAsync(Expression<Func<T, bool>> predicate = null);
 
         /// <param name="predicate"></param>
         /// <returns></returns>

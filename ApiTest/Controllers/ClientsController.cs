@@ -16,6 +16,14 @@ namespace ApiTest.Controllers
             this.clientService = clientService; 
         }
 
+        [HttpPost]
+        public async Task<ActionResult<Client>> Create(Client client)
+        {
+            var result = await clientService.CreateAsync(client);
+
+            return Ok(result);
+        }
+
         [HttpGet]
         public async Task<ActionResult<Client>> Get (string name)
         {
@@ -24,10 +32,19 @@ namespace ApiTest.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Client>> Create (Client client)
+        [HttpDelete]
+
+        public async Task<ActionResult> Delete(string name)
         {
-            var result = await clientService.CreateAsync(client);
+            var result = await clientService.DeleteAsync(p => p.FirstName == name);
+
+            return Ok(result);
+        } 
+
+        [HttpGet]
+        public ActionResult<Client> GetAll()
+        {
+            var result = clientService.GetAllAsync();
 
             return Ok(result);
         }

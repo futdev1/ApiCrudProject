@@ -29,14 +29,23 @@ namespace ApiTest.Data.Repositories
             return entry.Entity;
         }
 
-        public Task<T> DeleteAsync(Expression<Func<T, bool>> predicate)
+        public async Task<bool> DeleteAsync(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            var result = await dbSet.FirstOrDefaultAsync(predicate);
+
+            if (result != null)
+                return false;
+
+            dbSet.Remove(result);
+
+            await dbContext.SaveChangesAsync();
+
+            return true;
         }
 
-        public Task<IQueryable<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null)
+        public IQueryable<T> GetAllAsync(Expression<Func<T, bool>> predicate = null)
         {
-            throw new NotImplementedException();
+            return predicate is null ? dbSet : dbSet.Where(predicate); 
         }
 
         public async Task<T> GetAsync(Expression<Func<T, bool>> predicate)
@@ -44,9 +53,11 @@ namespace ApiTest.Data.Repositories
             return await dbSet.FirstOrDefaultAsync(predicate);
         }
 
-        public Task<T> UpdateAsync(T entity)
+        public T UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+            var entry = dbSet.Update(entity);
+
+            return entry.Entity;
         }
     }
 }

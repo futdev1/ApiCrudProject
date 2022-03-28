@@ -22,14 +22,14 @@ namespace ApiTest.Service.Services
             return clientRepository.CreateAsync(entity);
         }
 
-        public Task<Client> DeleteAsync(Expression<Func<Client, bool>> predicate)
+        public Task<bool> DeleteAsync(Expression<Func<Client, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return clientRepository.DeleteAsync(predicate);
         }
 
-        public Task<IQueryable<Client>> GetAllAsync(Expression<Func<Client, bool>> predicate = null)
+        public IQueryable<Client> GetAllAsync(Expression<Func<Client, bool>> predicate = null)
         {
-            throw new NotImplementedException();
+            return clientRepository.GetAllAsync(predicate);
         }
 
         public Task<Client> GetAsync(Expression<Func<Client, bool>> predicate)
@@ -37,9 +37,9 @@ namespace ApiTest.Service.Services
             return clientRepository.GetAsync(predicate);
         }
 
-        public Task<Client> UpdateAsync(Client entity)
+        public Client UpdateAsync(Client entity)
         {
-            throw new NotImplementedException();
+            return clientRepository.UpdateAsync(entity);
         }
     }
 }
