@@ -1,6 +1,8 @@
 ﻿using ApiTest.Models;
 using ApiTest.Service.Interfaces;
+using ApiTest.Service.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ApiTest.Controllers
@@ -17,14 +19,14 @@ namespace ApiTest.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Client>> Create(Client client)
+        public async Task<ActionResult<Client>> Create(ClientViewModel model)
         {
-            var result = await clientService.CreateAsync(client);
+            var result = await clientService.CreateAsync(model);
 
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpGet("{name}")]
         public async Task<ActionResult<Client>> Get (string name)
         {
             var result = await clientService.GetAsync(p => p.FirstName == name);
@@ -32,7 +34,7 @@ namespace ApiTest.Controllers
             return Ok(result);
         }
 
-        [HttpDelete]
+        [HttpDelete("{name}")]
 
         public async Task<ActionResult> Delete(string name)
         {
@@ -42,7 +44,7 @@ namespace ApiTest.Controllers
         } 
 
         [HttpGet]
-        public ActionResult<Client> GetAll()
+        public ActionResult<IQueryable<Client>> GetAll()
         {
             var result = clientService.GetAllAsync();
 

@@ -1,6 +1,7 @@
 ﻿using ApiTest.Data.IRepositories;
 using ApiTest.Models;
 using ApiTest.Service.Interfaces;
+using ApiTest.Service.ViewModels;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -17,9 +18,17 @@ namespace ApiTest.Service.Services
         }
 
 
-        public Task<Client> CreateAsync(Client entity)
+        public Task<Client> CreateAsync(ClientViewModel model)
         {
-            return clientRepository.CreateAsync(entity);
+            var client = new Client
+            {
+                Id = Guid.NewGuid(),
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                PhoneNumber = model.PhoneNumber
+            };
+
+            return clientRepository.CreateAsync(client);
         }
 
         public Task<bool> DeleteAsync(Expression<Func<Client, bool>> predicate)

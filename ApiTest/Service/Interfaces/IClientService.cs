@@ -1,4 +1,5 @@
 ﻿using ApiTest.Models;
+using ApiTest.Service.ViewModels;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -10,7 +11,7 @@ namespace ApiTest.Service.Interfaces
     {
         /// <param name="entity"></param>
         /// <returns></returns>
-        Task<Client> CreateAsync(Client entity);
+        Task<Client> CreateAsync(ClientViewModel model);
 
         /// <param name="predicate"></param>
         /// <returns></returns>
